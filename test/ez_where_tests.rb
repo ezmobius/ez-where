@@ -675,6 +675,13 @@ class EZWhereTest < Test::Unit::TestCase
     assert_equal expected, cond.to_sql
   end
 
+  def test_case_insensitive_utf
+    cond = EZ::Where::Condition.new :my_table
+    cond.any_of(:title, :subtitle).nocase =~ '%zażółć%'
+    expected = ["(UPPER(my_table.title) LIKE ? OR UPPER(my_table.subtitle) LIKE ?)", "%ZAŻÓŁĆ%", "%ZAŻÓŁĆ%"]
+    assert_equal expected, cond.to_sql
+  end
+  
   def test_handling_of_empty_clause_values
     clause = EZ::Where::Clause.new(:name)
     clause == nil

@@ -3,13 +3,14 @@ require 'rubygems'
 require 'active_record'
 require 'active_record/fixtures'
 require 'active_support'
-require 'active_support/breakpoint'
 
 require File.dirname(__FILE__) + '/../lib/ez/where'
 require File.dirname(__FILE__) + '/../lib/ez/clause'
 require File.dirname(__FILE__) + '/../lib/ez/condition'
 require File.dirname(__FILE__) + '/../lib/ez/hash'
 require File.dirname(__FILE__) + '/../lib/ez/compositions'
+
+$KCODE = 'u' if RUBY_VERSION < '1.9'
 
 config = YAML::load(IO.read(File.dirname(__FILE__) + '/database.yml'))
 ActiveRecord::Base.logger = Logger.new(File.dirname(__FILE__) + "/debug.log")

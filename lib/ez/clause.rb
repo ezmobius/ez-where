@@ -143,7 +143,7 @@ module EZ
               @negate ? ["#{@table_prefix}#{@name} IS NOT NULL"] : ["#{@table_prefix}#{@name} IS NULL"] 
             else
               if @case_insensitive and value.respond_to?(:upcase)
-                @negate ? ["UPPER(#{@table_prefix}#{@name}) != ?", value.upcase] : ["UPPER(#{@table_prefix}#{@name}) = ?", value.upcase] 
+                @negate ? ["UPPER(#{@table_prefix}#{@name}) != ?", value.mb_chars.upcase] : ["UPPER(#{@table_prefix}#{@name}) = ?", value.mb_chars.upcase] 
               else
                 @negate ? ["#{@table_prefix}#{@name} != ?", value] : ["#{@table_prefix}#{@name} = ?", value] 
               end
@@ -155,7 +155,7 @@ module EZ
               @negate ? ["#{@table_prefix}#{@name} NOT REGEXP ?", str] : ["#{@table_prefix}#{@name} REGEXP ?", str]           
             else
               if @case_insensitive and value.respond_to?(:upcase)
-                @negate ? ["UPPER(#{@table_prefix}#{@name}) NOT LIKE ?", value.upcase] : ["UPPER(#{@table_prefix}#{@name}) LIKE ?", value.upcase]
+                @negate ? ["UPPER(#{@table_prefix}#{@name}) NOT LIKE ?", value.mb_chars.upcase] : ["UPPER(#{@table_prefix}#{@name}) LIKE ?", value.mb_chars.upcase]
               else
                 @negate ? ["#{@table_prefix}#{@name} NOT LIKE ?", value] : ["#{@table_prefix}#{@name} LIKE ?", value]
               end
