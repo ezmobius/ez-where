@@ -5,7 +5,7 @@ class Hash #:nodoc:
   end
  
   def to_conditions(param = 'AND')
-    [map { |k, v| "#{k} #{ActiveRecord::Base.send(:attribute_condition, v)}" }.join(" #{param} "), *values]
+    [map { |k, v| "#{ActiveRecord::Base.send(:attribute_condition, k, v)}" }.join(" #{param} "), *values]
   end
   
   alias :to_sql_conditions :to_conditions

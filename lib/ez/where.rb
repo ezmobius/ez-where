@@ -1,9 +1,10 @@
 class ActiveRecord::Base
   class << self
     alias :original_sanitize_sql :sanitize_sql   
-    def sanitize_sql(condition)
+    # New method signature since Rails 2.3.3 is: (condition, table_name = quoted_table_name)
+    def sanitize_sql(condition, table_name = quoted_table_name)
       condition = condition.to_sql if EZ::Where::Condition === condition
-      original_sanitize_sql condition
+      original_sanitize_sql condition, table_name
     end   
   end
 end

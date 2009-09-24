@@ -56,7 +56,7 @@ class SampleToCond
   
 end
 
-class EZWhereTest < Test::Unit::TestCase
+class EZWhereTest < ActiveSupport::TestCase
 
   fixtures :articles, :authors, :comments, :users
 

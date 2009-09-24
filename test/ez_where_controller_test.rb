@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/test_helper'
+require 'action_controller'
 require 'action_controller/test_process'
 
 ActionController::Base.send :include, EZ::Where
@@ -42,7 +43,7 @@ class MockController < ActionController::Base
   
 end
 
-class EzWhereWithinControllerTest < Test::Unit::TestCase
+class EzWhereWithinControllerTest < ActionController::TestCase
   
   fixtures :articles, :authors, :comments
   
@@ -72,7 +73,7 @@ class EzWhereWithinControllerTest < Test::Unit::TestCase
     assert_equal expected, assigns(:condition_a) 
     expected = ["((age > 20) AND NOT (user_id IN (?))) OR (login = ?)", 1..5, "foo"]
     assert_equal expected, assigns(:condition_b)
-    expected = ["((my_table.foo = ? AND my_table.baz LIKE ? AND (my_table.login = ? OR my_table.name = ?)) AND age > 20) AND NOT (color = ? AND number = ?)", "bar", "%buzz%", "foo", "ezra", "red", "five"]
+    expected = ["((my_table.foo = ? AND my_table.baz LIKE ? AND (my_table.login = ? OR my_table.name = ?)) AND age > 20) AND NOT (number = ? AND color = ?)", "bar", "%buzz%", "foo", "ezra", "five", "red"]
     assert_equal expected, assigns(:condition_c)         
   end
   
